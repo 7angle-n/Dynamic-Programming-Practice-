@@ -20,8 +20,24 @@ int dp(int n){
     return ans;
 }
 
+int bottom_up_dp(int n){
+    int dp[n + 1];
+    if(n == 1) return 0;
+    dp[0] = 0, dp[1] = 0, dp[2] = 1, dp[3] = 1;
+    for(int i = 4; i <= n; i++){
+        int a = INT_MAX, b = INT_MAX, c = INT_MAX;
+        if(i % 2 == 0) a = 1 + dp[i/2];
+        if(i % 3 == 0) b = 1 + dp[i/3];
+        c = 1 + dp[i - 1];
+        dp[i] = min({a, b, c});
+    }
+    return dp[n];
+}
+
 int main() {
 	int n; cin >> n;
 	memset(memo, -1, sizeof(memo));
 	cout << dp(n) << endl;
+	cout << bottom_up_dp(10) << endl;
 }
+
